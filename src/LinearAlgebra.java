@@ -1,3 +1,5 @@
 public class LinearAlgebra {
-    ckldhsdbisudfsdfjgsdofsdsfk
+    public static void main(String[] args) {
+
+    }
 }
