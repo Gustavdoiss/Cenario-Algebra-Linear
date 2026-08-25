@@ -1,5 +1,5 @@
 public class LinearAlgebra {
-    public static void main(String[] args) {
-
+    public Matrix add(Matrix A, Matrix B) {
+        return new Matrix(A, B);
     }
 }
