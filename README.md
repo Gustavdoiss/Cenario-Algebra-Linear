@@ -7,14 +7,14 @@ O objetivo é implementar, em **Java**, a representação de matrizes e vetores,
 ## Checklist
 
 ### Classe `Matrix`
-- [ ] Construtor: `Matrix(int rows, int cols, double[] elements)`
-- [ ] Método `get(int i, int j)`
-- [ ] Método `set(int i, int j, double value)`
+- [x] Construtor: `Matrix(int rows, int cols, double[] elements)`
+- [x] Método `get(int i, int j)`
+- [x] Método `set(int i, int j, double value)`
 
 ### Classe `Vector`
-- [ ] Construtor: `Vector(int dim, double[] elements)`
-- [ ] Método `get(int i)`
-- [ ] Método `set(int i, double value)`
+- [x] Construtor: `Vector(int dim, double[] elements)`
+- [x] Método `get(int i)`
+- [x] Método `set(int i, double value)`
 
 ### Classe `LinearAlgebra`
 - [ ] Método `transpose(a)` — transpõe uma `Matrix` ou `Vector`
