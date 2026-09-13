@@ -17,13 +17,13 @@ O objetivo é implementar, em **Java**, a representação de matrizes e vetores,
 - [x] Método `set(int i, double value)`
 
 ### Classe `LinearAlgebra`
-- [ ] Método `transpose(a)` — transpõe uma `Matrix` ou `Vector`
-- [ ] Método `sum(a, b)` — soma duas matrizes ou dois vetores
-- [ ] Método `times(a, b)` — multiplicação elemento a elemento (ou escalar × matriz)
-- [ ] Método `dot(a, b)` — multiplicação de matrizes
-- [ ] Método `gauss(a)` — eliminação gaussiana
-- [ ] Método `solve(a)` — resolve o sistema linear (matriz aumentada)
+- [x] Método `transpose(a)` — transpõe uma `Matrix` ou `Vector`
+- [x] Método `sum(a, b)` — soma duas matrizes ou dois vetores
+- [x] Método `times(a, b)` — multiplicação elemento a elemento (ou escalar × matriz)
+- [x] Método `dot(a, b)` — multiplicação de matrizes
+- [x] Método `gauss(a)` — eliminação gaussiana
+- [x] Método `solve(a)` — resolve o sistema linear (matriz aumentada)
 
 ### Extras
 - [ ] Tratamento de erros nos métodos (dimensões incompatíveis, índices inválidos etc.)
-- [ ] Testes das operações implementadas
+- [x] Testes das operações implementadas
