@@ -27,16 +27,16 @@ public class Vector {
     }
 
     public double get(int i) {
-        if (i > this.dim) {
-            throw new Error("Índice não existente no Vetor!");
+        if (i > this.dim || i <= 0) {
+            throw new IndexOutOfBoundsException("Índice não existente no Vetor!");
         }else {
             return this.elements[i-1];
         }
     }
 
     public void set(int i, double value) {
-        if (i > this.dim) {
-            throw new Error("Índice não existente no Vetor!");
+        if (i > this.dim || i <= 0) {
+            throw new IndexOutOfBoundsException("Índice não existente no Vetor!");
         }else {
             this.elements[i-1] = value;
         }

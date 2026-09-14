@@ -34,19 +34,18 @@ public class Matrix {
 
     public void set(int i, int j, double value) {
         if (i > rows || i <= 0 || j > cols || j <= 0) {
-            System.out.println("Não foi possível definir um valor!");
-        }else {
-            this.elements[i-1][j-1] = value;
+            throw new IndexOutOfBoundsException("Não foi possível definir um valor!");
         }
+
+        this.elements[i-1][j-1] = value;
     }
 
     public double get(int i, int j) {
         if (i > rows || i <= 0 || j > cols || j <= 0) {
-            System.out.println("Não foi possível encontrar um valor!");
-            return 0;
-        }else {
-            return this.elements[i-1][j-1];
+            throw new IndexOutOfBoundsException("Não foi possível encontrar um valor!");
         }
+
+        return this.elements[i-1][j-1];
     }
 
     public void printMatrix() {

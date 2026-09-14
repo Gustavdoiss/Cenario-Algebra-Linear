@@ -27,8 +27,7 @@ public class LinearAlgebra {
 
     public static Matrix sum(Matrix a, Matrix b) {
         if (a.getRows() != b.getRows() || a.getCols() != b.getCols()) {
-            System.out.println("Erro: As matrizes devem ter as mesmas dimensões.");
-            return null;
+            throw new IllegalArgumentException("As matrizes devem ter as mesmas dimensões.");
         }
 
         int rows = a.getRows();
@@ -45,8 +44,7 @@ public class LinearAlgebra {
 
     public static Vector sum(Vector a, Vector b) {
         if (a.getDim() != b.getDim()) {
-            System.out.println("Erro: Os vetores devem ter a mesma dimensão.");
-            return null;
+            throw new IllegalArgumentException("Os vetores devem ter a mesma dimensão.");
         }
 
         int dim = a.getDim();
@@ -62,8 +60,7 @@ public class LinearAlgebra {
 
     public static Matrix times(Matrix a, Matrix b) {
         if (a.getRows() != b.getRows() || a.getCols() != b.getCols()) {
-            System.out.println("Erro: As matrizes devem ter as mesmas dimensões.");
-            return null;
+            throw new IllegalArgumentException("As matrizes devem ter as mesmas dimensões.");
         }
 
         int rows = a.getRows();
@@ -82,8 +79,7 @@ public class LinearAlgebra {
 
     public static Vector times(Vector a, Vector b) {
         if (a.getDim() != b.getDim()) {
-            System.out.println("Erro: Os vetores devem ter a mesma dimensão.");
-            return null;
+            throw new IllegalArgumentException("Os vetores devem ter a mesma dimensão.");
         }
 
         int dim = a.getDim();
@@ -140,28 +136,55 @@ public class LinearAlgebra {
         Matrix m1 = new Matrix(2, 2, m1Data);
         Matrix m2 = new Matrix(2, 2, m2Data);
 
-
-
         System.out.println("============== TESTES COM MATRIZES ==============");
 
         System.out.println("\n--- Matriz M1 ---");
         m1.printMatrix();
 
         System.out.println("\n1. Transposta de M1:");
-        Matrix mTrans = LinearAlgebra.transpose(m1);
-        mTrans.printMatrix();
+        LinearAlgebra.transpose(m1).printMatrix();
 
         System.out.println("\n2. Soma (M1 + M2):");
-        Matrix mSoma = LinearAlgebra.sum(m1, m2);
-        if (mSoma != null) mSoma.printMatrix();
+        LinearAlgebra.sum(m1, m2).printMatrix();
 
         System.out.println("\n3. Multiplicação Elemento a Elemento (M1 * M2):");
-        Matrix mTimes = LinearAlgebra.times(m1, m2);
-        if (mTimes != null) mTimes.printMatrix();
+        LinearAlgebra.times(m1, m2).printMatrix();
 
         System.out.println("\n4. Multiplicação por Escalar (2.5 * M1):");
-        Matrix mEscalar = LinearAlgebra.times(2.5, m1);
-        mEscalar.printMatrix();
+        LinearAlgebra.times(2.5, m1).printMatrix();
+
+        System.out.println("\n============== TESTES COM VETORES ==============");
+
+        Vector v1 = new Vector(new double[]{1.0, 2.0, 3.0}, 3);
+        Vector v2 = new Vector(new double[]{4.0, 5.0, 6.0}, 3);
+
+        System.out.println("\n--- Vetor V1 ---");
+        v1.printVector();
+        System.out.println("--- Vetor V2 ---");
+        v2.printVector();
+
+        System.out.println("\n5. Transposta de V1 (vira Matrix 1x3):");
+        LinearAlgebra.transpose(v1).printMatrix();
+
+        System.out.println("\n6. Soma (V1 + V2):");
+        LinearAlgebra.sum(v1, v2).printVector();
+
+        System.out.println("\n7. Multiplicação Elemento a Elemento (V1 * V2):");
+        LinearAlgebra.times(v1, v2).printVector();
+
+        System.out.println("\n8. Multiplicação por Escalar (2.5 * V1):");
+        LinearAlgebra.times(2.5, v1).printVector();
+
+        System.out.println("\n9. Erro esperado: somar vetores de dimensões diferentes -> V1 + V3");
+        Vector v3 = new Vector(new double[]{1.0, 2.0}, 2);
+        System.out.println("--- Vetor V3 ---");
+        v3.printVector();
+
+        try {
+            LinearAlgebra.sum(v1, v3);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 
     //parte Enzo
@@ -169,8 +192,7 @@ public class LinearAlgebra {
     public static Matrix dot(Matrix a, Matrix b) {
         
         if (a.getCols() != b.getRows()) {
-            System.out.println("Erro: A quantidade de colunas da primeira matriz deve ser igual à quantidade de linhas da segunda matriz.");
-            return null;
+            throw new IllegalArgumentException("A quantidade de colunas da primeira matriz deve ser igual à quantidade de linhas da segunda matriz.");
         }
 
         int rows = a.getRows();
@@ -242,58 +264,127 @@ public class LinearAlgebra {
 
     public static Matrix solve(Matrix a) {
 
-        Matrix echelon = gauss(a);
-        int rows = echelon.getRows();
-        int cols = echelon.getCols();
+        Matrix escalonada = gauss(a);
+        int rows = escalonada.getRows();
+        int cols = escalonada.getCols();
 
         if (cols <= rows) {
-            System.out.println("Erro: A matriz não representa um sistema linear resolvível (precisa ser aumentada).");
-            return null;
+            throw new IllegalArgumentException("Erro: A matriz não representa um sistema linear resolvível (precisa ser aumentada).");
+        }
+
+        int n = cols - 1;
+
+        for (int i = 1; i <= rows; i++) {
+            boolean coeficientesZerados = true;
+            for (int j = 1; j <= n; j++) {
+                if (Math.abs(escalonada.get(i, j)) > 1e-10) {
+                    coeficientesZerados = false;
+                    break;
+                }
+            }
+            if (coeficientesZerados && Math.abs(escalonada.get(i, cols)) > 1e-10) {
+                double[][] semSolucao = {{0.0}};
+                return new Matrix(1, 1, semSolucao);
+            }
+        }
+
+        boolean indeterminado = false;
+        for (int i = 1; i <= Math.min(rows, n); i++) {
+            if (Math.abs(escalonada.get(i, i)) < 1e-10) {
+                indeterminado = true;
+                break;
+            }
+        }
+
+        if (indeterminado) {
+            double[][] simbolico = new double[n][1];
+            for (int i = 0; i < n; i++) simbolico[i][0] = Double.NaN;
+            return new Matrix(n, 1, simbolico);
         }
 
         double[][] solElements = new double[rows][1];
-
         for (int i = rows; i >= 1; i--) {
-            double sum = echelon.get(i, cols); 
-            
+            double sum = escalonada.get(i, cols);
             for (int j = i + 1; j <= rows; j++) {
-                sum -= echelon.get(i, j) * solElements[j-1][0];
+                sum -= escalonada.get(i, j) * solElements[j - 1][0];
             }
-            
-            double pivot = echelon.get(i, i);
-            if (Math.abs(pivot) < 1e-10) {
-                System.out.println("Aviso: O sistema não tem solução única (indeterminado ou sem solução).");
-                return null;
-            }
-            solElements[i-1][0] = sum / pivot;
+            double pivot = escalonada.get(i, i);
+            solElements[i - 1][0] = sum / pivot;
         }
-
         return new Matrix(rows, 1, solElements);
     }
+
     public static void enzoTeste() {
-    //testei aq
         System.out.println("\n--- Teste do Método: dot (Multiplicação) ---");
         double[][] valA = {{1, 2}, {3, 4}};
         double[][] valB = {{2, 0}, {1, 2}};
         Matrix mA = new Matrix(2, 2, valA);
+        System.out.println("\n--- Matriz A ---");
+        mA.printMatrix();
         Matrix mB = new Matrix(2, 2, valB);
-        Matrix mDot = dot(mA, mB);
-        if (mDot != null) mDot.printMatrix();
+        System.out.println("\n--- Matriz B ---");
+        mB.printMatrix();
+        System.out.println("\n--- Multiplicação ---");
+        dot(mA, mB).printMatrix();
+
+        System.out.println("\n9b. Erro esperado: multiplicação com dimensões incompatíveis -> A x C");
+        Matrix mC = new Matrix(3, 1, new double[][]{{1}, {2}, {3}});
+        System.out.println("\n--- Matriz C ---");
+        mC.printMatrix();
+
+        try {
+            dot(mA, mC);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
 
         System.out.println("\n--- Teste do Método: gauss (Eliminação) ---");
+        System.out.println("\n--- Matriz G ---");
         double[][] valG = {
-            {2, 1, -1, 8}, 
-            {-3, -1, 2, -11}, 
-            {-2, 1, 2, -3}
+                {2, 1, -1, 8},
+                {-3, -1, 2, -11},
+                {-2, 1, 2, -3}
         };
         Matrix mG = new Matrix(3, 4, valG);
         mG.printMatrix();
         Matrix mGauss = gauss(mG);
+        System.out.println("\n--- Escalonada ---");
         mGauss.printMatrix();
 
-        System.out.println("\n--- Teste do Método: solve (Resolução Sistema Linear) ---");
-        Matrix solution = solve(mG);
-        if (solution != null) solution.printMatrix();
+        System.out.println("\n--- Teste do Método: solve — Sistema Possível e Determinado (SPD) ---");
+        System.out.println("\n--- Resolução de G ---");
+        solve(mG).printMatrix();
 
+        System.out.println("\n--- Teste do Método: solve — Sistema Possível e Indeterminado (SPI) ---");
+        double[][] valSPI = {
+                {1, 2, 3, 6},
+                {2, 4, 6, 12},
+                {1, 1, 1, 3}
+        };
+        System.out.println("\n--- Sistema SPI ---");
+        new Matrix(3, 4, valSPI).printMatrix();
+        System.out.println();
+        solve(new Matrix(3, 4, valSPI)).printMatrix();
+
+        System.out.println("\n--- Teste do Método: solve — Sistema Impossível (SI) ---");
+        double[][] valSI = {
+                {1, 1, 1, 3},
+                {1, 1, 1, 5},
+                {2, 2, 2, 8}
+        };
+        System.out.println("\n--- Sistema SI ---");
+        new Matrix(3, 4, valSI).printMatrix();
+        System.out.println();
+        solve(new Matrix(3, 4, valSI)).printMatrix();
+
+        System.out.println("\n--- Teste do Método: solve — Erro esperado (matriz não aumentada) ---");
+        double[][] valNaoAumentada = {{1, 2}, {3, 4}};
+        System.out.println("\n--- Sistema SI ---");
+        new Matrix(2, 2, valNaoAumentada).printMatrix();
+        try {
+            solve(new Matrix(2, 2, valNaoAumentada));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

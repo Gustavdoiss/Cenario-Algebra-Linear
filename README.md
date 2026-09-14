@@ -25,5 +25,5 @@ O objetivo é implementar, em **Java**, a representação de matrizes e vetores,
 - [x] Método `solve(a)` — resolve o sistema linear (matriz aumentada)
 
 ### Extras
-- [ ] Tratamento de erros nos métodos (dimensões incompatíveis, índices inválidos etc.)
+- [x] Tratamento de erros nos métodos (dimensões incompatíveis, índices inválidos etc.)
 - [x] Testes das operações implementadas
