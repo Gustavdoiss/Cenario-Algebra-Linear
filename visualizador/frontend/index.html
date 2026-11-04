@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transformações Lineares | Visualizador de Álgebra Linear</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#transformacoes" aria-label="Início">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+      <line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/>
+      <line x1="12" y1="12" x2="19" y2="6"/>
+    </svg>
+    Álgebra Linear
+  </a>
+  <nav aria-label="Seções">
+    <ul>
+      <li><a href="#transformacoes" data-p="transformacoes">Transformações</a></li>
+      <li><a href="#homogeneas" data-p="homogeneas">Coordenadas Homogêneas</a></li>
+    </ul>
+  </nav>
+  <span class="api" id="api-status" title="Status da API Spring Boot">API: verificando…</span>
+</header>
+
+<div class="aviso" id="aviso" hidden></div>
+
+<main>
+  <!-- =====================================================
+       ABA 1: TRANSFORMAÇÕES
+       ===================================================== -->
+  <section id="pg-transformacoes" class="pagina" hidden>
+    <h1>Transformações lineares</h1>
+
+    <div class="calculo">
+      <div class="manipulacao">
+        <h2>Dimensão</h2>
+        <div class="chips" id="tf-dimensao">
+          <button type="button" data-dim="2" class="on">2D</button>
+          <button type="button" data-dim="3">3D</button>
+        </div>
+
+        <h2>Transformação</h2>
+        <div class="chips" id="tf-categorias"></div>
+        <div class="chips sub" id="tf-variantes"></div>
+        <p class="mini" id="tf-descricao"></p>
+
+        <div id="tf-parametros"></div>
+
+        <h2>Vetor v</h2>
+        <div class="row" id="tf-vetor"></div>
+
+        <h2>Animação</h2>
+        <label class="f"><span id="tf-t-label">t = 1</span>
+          <input type="range" id="tf-t" min="0" max="1" step="0.01" value="1" aria-label="Progresso da transformação">
+        </label>
+        <div class="chips" style="margin-top:8px">
+          <button type="button" id="tf-animar">▶ Animar</button>
+          <button type="button" id="tf-resetar">Resetar</button>
+        </div>
+      </div>
+
+      <aside class="visualizacao">
+        <div class="cena" id="tf-cena" aria-label="Animação da transformação (manim-web)"></div>
+        <p class="legenda" id="tf-legenda"></p>
+      </aside>
+    </div>
+
+    <div class="resposta">
+      <div class="resultado" id="tf-resultado" aria-live="polite"></div>
+      <div class="explicacao" id="tf-explicacao"></div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ABA 2: COORDENADAS HOMOGÊNEAS
+       ===================================================== -->
+  <section id="pg-homogeneas" class="pagina" hidden>
+    <h1>Coordenadas homogêneas</h1>
+    <p class="intro">
+      A translação <b>não é linear</b>: ela tira a origem do lugar, e nenhuma matriz 2×2 consegue fazer isso.
+      O truque é ganhar uma coordenada extra <b>w</b>: o ponto (x ; y) vira [x, y, 1].
+      Com isso, translação, rotação, reflexão… viram todas uma multiplicação por uma matriz 3×3 (ou 4×4 no 3D).
+      Esta aba mostra o código Java que faz essa conversão em <code>Transformations.java</code>.
+    </p>
+
+    <div class="calculo">
+      <div class="manipulacao">
+        <h2>Dimensão</h2>
+        <div class="chips" id="hg-dimensao">
+          <button type="button" data-dim="2" class="on">2D</button>
+          <button type="button" data-dim="3">3D</button>
+        </div>
+
+        <h2>Cartesiano → homogêneo</h2>
+        <div class="row" id="hg-cart"></div>
+        <p class="mini" id="hg-cart-res"></p>
+
+        <h2>Homogêneo → cartesiano</h2>
+        <div class="row" id="hg-hom"></div>
+        <p class="mini" id="hg-hom-res"></p>
+        <div class="chips" style="margin-top:8px">
+          <button type="button" id="hg-animar">▶ Dividir por w</button>
+        </div>
+      </div>
+
+      <aside class="visualizacao">
+        <div class="cena" id="hg-cena" aria-label="Visualização das coordenadas homogêneas (manim-web)"></div>
+        <p class="legenda" id="hg-legenda">
+          laranja = ponto [x, y, w] · verde = onde a reta pela origem fura o plano w = 1, ou seja (x/w ; y/w)
+        </p>
+      </aside>
+    </div>
+
+    <div id="hg-codigos" class="codigos"></div>
+  </section>
+</main>
+
+<footer>
+  Front-end: HTML + CSS + JS com <a href="https://github.com/maloyan/manim-web">manim-web</a> ·
+  Cálculos: Spring Boot com as classes do repositório (<code>Matrix</code>, <code>Vector</code>,
+  <code>LinearAlgebra</code>, <code>Transformations</code>).
+</footer>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

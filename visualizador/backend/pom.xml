@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.5.16</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>br.unifor</groupId>
+    <artifactId>visualizador-transformacoes</artifactId>
+    <version>1.0.0</version>
+    <name>Visualizador de Transformações Lineares</name>
+    <description>API REST (Spring Boot) com as transformações do Cenário de Álgebra Linear</description>
+
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <!-- Configurações normais do Spring (application.properties) -->
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <!-- O front-end (HTML/CSS/JS) é servido pelo próprio Spring em http://localhost:8080 -->
+            <resource>
+                <directory>../frontend</directory>
+                <targetPath>static</targetPath>
+            </resource>
+            <!-- Cópia do código Java das classes de álgebra: a API devolve trechos dele para o front mostrar -->
+            <resource>
+                <directory>src/main/java/br/unifor/algebralinear/algebra</directory>
+                <targetPath>codigo-fonte</targetPath>
+                <includes>
+                    <include>*.java</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
