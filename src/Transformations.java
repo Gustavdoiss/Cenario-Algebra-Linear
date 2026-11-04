@@ -210,11 +210,11 @@ public class Transformations {
     public static Vector reflection3DX(Vector vector) {
         checkDim(vector, 3, "reflection3DX");
 
-        // Matriz de Reflexão em relação ao eixo X (4x4)
+        // Matriz de Reflexão em relação ao plano YZ (4x4)
         double[][] mData = {
-                {1.0, 0.0, 0.0, 0.0},
-                {0.0, -1.0, 0.0, 0.0},
-                {0.0, 0.0, -1.0, 0.0},
+                {-1.0, 0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
                 {0.0, 0.0, 0.0, 1.0}
         };
 
@@ -224,11 +224,11 @@ public class Transformations {
     public static Vector reflection3DY(Vector vector) {
         checkDim(vector, 3, "reflection3DY");
 
-        // Matriz de Reflexão em relação ao eixo Y (4x4)
+        // Matriz de Reflexão em relação ao plano XZ (4x4)
         double[][] mData = {
-                {-1.0, 0.0, 0.0, 0.0},
-                {0.0, 1.0, 0.0, 0.0},
-                {0.0, 0.0, -1.0, 0.0},
+                {1.0, 0.0, 0.0, 0.0},
+                {0.0, -1.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
                 {0.0, 0.0, 0.0, 1.0}
         };
 
@@ -238,11 +238,11 @@ public class Transformations {
     public static Vector reflection3DZ(Vector vector) {
         checkDim(vector, 3, "reflection3DZ");
 
-        // Matriz de Reflexão em relação ao eixo Z (4x4)
+        // Matriz de Reflexão em relação ao plano XY (4x4)
         double[][] mData = {
-                {-1.0, 0.0, 0.0, 0.0},
-                {0.0, -1.0, 0.0, 0.0},
-                {0.0, 0.0, 1.0, 0.0},
+                {1.0, 0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, -1.0, 0.0},
                 {0.0, 0.0, 0.0, 1.0}
         };
 
