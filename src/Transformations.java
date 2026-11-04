@@ -249,6 +249,50 @@ public class Transformations {
         return dotHomogeneous(mData, vector);
     }
 
+    // Interpretação A: em relação ao eixo (alternativa caso o professor espere essa)
+
+    public static Vector reflection3DXAxis(Vector vector) {
+        checkDim(vector, 3, "reflection3DXAxis");
+
+        // Matriz de Reflexão em relação ao eixo X (4x4)
+        double[][] mData = {
+                {1.0, 0.0, 0.0, 0.0},
+                {0.0, -1.0, 0.0, 0.0},
+                {0.0, 0.0, -1.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector reflection3DYAxis(Vector vector) {
+        checkDim(vector, 3, "reflection3DYAxis");
+
+        // Matriz de Reflexão em relação ao eixo Y (4x4)
+        double[][] mData = {
+                {-1.0, 0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, -1.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector reflection3DZAxis(Vector vector) {
+        checkDim(vector, 3, "reflection3DZAxis");
+
+        // Matriz de Reflexão em relação ao eixo Z (4x4)
+        double[][] mData = {
+                {-1.0, 0.0, 0.0, 0.0},
+                {0.0, -1.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
     // ==========================================
     // PROJEÇÃO
     // Enzo
@@ -322,4 +366,47 @@ public class Transformations {
         return dotHomogeneous(mData, vector);
     }
 
+    // Interpretação A: em relação ao eixo (alternativa caso o professor espere essa)
+
+    public static Vector projection3DXAxis(Vector vector) {
+        checkDim(vector, 3, "projection3DXAxis");
+
+        // Matriz de Projeção sobre o eixo X (4x4)
+        double[][] mData = {
+                {1.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector projection3DYAxis(Vector vector) {
+        checkDim(vector, 3, "projection3DYAxis");
+
+        // Matriz de Projeção sobre o eixo Y (4x4)
+        double[][] mData = {
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector projection3DZAxis(Vector vector) {
+        checkDim(vector, 3, "projection3DZAxis");
+
+        // Matriz de Projeção sobre o eixo Z (4x4)
+        double[][] mData = {
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
 }
