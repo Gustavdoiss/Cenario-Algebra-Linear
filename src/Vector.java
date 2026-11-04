@@ -45,7 +45,7 @@ public class Vector {
     public void printVector() {
         for (int i = 0; i < this.dim; i++) {
             System.out.printf("| %d ", i + 1);
-            System.out.println("| " + this.elements[i] + " |");
+            System.out.println("| " + String.format(java.util.Locale.US, "%.2f", this.elements[i]) + " |");
         }
     }
 }
