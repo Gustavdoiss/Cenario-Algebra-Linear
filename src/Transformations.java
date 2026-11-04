@@ -248,4 +248,77 @@ public class Transformations {
 
         return dotHomogeneous(mData, vector);
     }
+    // ==========================================
+    // REFLEXÃO
+    // Arthur
+    // ==========================================
+
+    public static Vector reflection2DX(Vector vector) {
+        checkDim(vector, 2, "reflection2DX");
+
+        // Matriz de Reflexão 2DX (3x3)
+        double[][] mData = {
+            {1.0, 0.0, 0.0},
+            {0.0, -1.0, 0.0},
+            {0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector reflection2DY(Vector vector) {
+        checkDim(vector, 2, "reflection2DY");
+
+        // Matriz de Reflexão 2DY (3x3)
+        double[][] mData = {
+            {-1.0, 0.0, 0.0},
+            {0.0, 1.0, 0.0},
+            {0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector reflection3DX(Vector vector) {
+        checkDim(vector, 3, "reflection3DX");
+
+        // Matriz de Reflexão 3DX (4x4)
+        double[][] mData = {
+            {1.0, 0.0, 0.0, 0.0},
+            {0.0, -1.0, 0.0, 0.0},
+            {0.0, 0.0, -1.0, 0.0},
+            {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector reflection3DY(Vector vector) {
+        checkDim(vector, 3, "reflection3DY");
+
+        // Matriz de Reflexão 3DY (4x4)
+        double[][] mData = {
+            {-1.0, 0.0, 0.0, 0.0},
+            {0.0, 1.0, 0.0, 0.0},
+            {0.0, 0.0, -1.0, 0.0},
+            {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector reflection3DZ(Vector vector) {
+        checkDim(vector, 3, "reflection3DZ");
+
+        // Matriz de Reflexão 3DZ (4x4)
+        double[][] mData = {
+            {-1.0, 0.0, 0.0, 0.0},
+            {0.0, -1.0, 0.0, 0.0},
+            {0.0, 0.0, 1.0, 0.0},
+            {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
 }
