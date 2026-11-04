@@ -248,4 +248,78 @@ public class Transformations {
 
         return dotHomogeneous(mData, vector);
     }
+
+    // ==========================================
+    // PROJEÇÃO
+    // Enzo
+    // ==========================================
+
+    public static Vector projection2DX(Vector vector) {
+        checkDim(vector, 2, "projection2DX");
+
+        // Matriz de Projeção sobre o eixo X (3x3)
+        double[][] mData = {
+                {1.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector projection2DY(Vector vector) {
+        checkDim(vector, 2, "projection2DY");
+
+        // Matriz de Projeção sobre o eixo Y (3x3)
+        double[][] mData = {
+                {0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0},
+                {0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector projection3DX(Vector vector) {
+        checkDim(vector, 3, "projection3DX");
+
+        // Matriz de Projeção sobre o plano YZ (4x4)
+        double[][] mData = {
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector projection3DY(Vector vector) {
+        checkDim(vector, 3, "projection3DY");
+
+        // Matriz de Projeção sobre o plano XZ (4x4)
+        double[][] mData = {
+                {1.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 1.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
+    public static Vector projection3DZ(Vector vector) {
+        checkDim(vector, 3, "projection3DZ");
+
+        // Matriz de Projeção sobre o plano XY (4x4)
+        double[][] mData = {
+                {1.0, 0.0, 0.0, 0.0},
+                {0.0, 1.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 0.0},
+                {0.0, 0.0, 0.0, 1.0}
+        };
+
+        return dotHomogeneous(mData, vector);
+    }
+
 }
