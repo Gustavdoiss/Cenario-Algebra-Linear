@@ -101,8 +101,8 @@ public class Transformations {
 
         // Matriz de Cisalhamento 2D (3x3)
         double[][] mData = {
-                {1.0, ky, 0.0},
-                {kx, 1.0, 0.0},
+                {1.0, kx, 0.0},
+                {ky, 1.0, 0.0},
                 {0.0, 0.0, 1.0}
         };
 
